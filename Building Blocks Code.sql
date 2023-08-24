@@ -1,6 +1,7 @@
 Building Blocks Code
 
-
+--this si the main select statement from all the tables. 
+--every table has reference_code, which is the state, chamber designation, and district number. 
 drop table if exists jdickinson1.building_blocks_master;
 create table jdickinson1.building_blocks_master as
 	(
@@ -37,6 +38,7 @@ from
  order by 1
  )
 
+	
 select 
 bb.*
 from jdickinson1.building_blocks_master bb
@@ -44,6 +46,8 @@ where pe.state_code= 'NM'
  and pe.chamber= 'state_house'
 
 
+--this code turns the existing candidate naes table from a table with one row per candidate to one row per district
+-- it needs to be per candidate for the research team, and per district for connecting to building blocks.
  select 
  ci.reference_code
  ,ci.state as state_code
@@ -84,9 +88,8 @@ where pe.state_code= 'NM'
 
 
 
-
-
-
+--here's further itrations of the master code.
+	
  drop table if exists jdickinson1.building_blocks_master;
 create table jdickinson1.building_blocks_master as
 	(select
@@ -124,7 +127,7 @@ left join jdickinson1.bb_2022_targets ta on pe.reference_code = ta.reference_cod
 
 
 	
-		
+--this is the export statement for Alaska, which has a different candidate setup, so can't just export from the master table with a where statement		
 select
 bb.state_code
 ,bb.chamber
